@@ -16,18 +16,23 @@ There are no tests in this project.
 
 ## Architecture
 
-This is a single-component React app (Vite + React 19). All application logic lives in `src/App.jsx` — there are no sub-components, no routing, no state management library, and no backend.
+React 19 + Vite app with no routing, no state management library, and no backend. The app is split into four components:
 
-**State** (all in `App` via `useState`):
-- `transactions` — array of `{ id, description, amount, type, category, date }`. `amount` is stored as a **string**, which causes the summary totals to concatenate instead of sum (known bug in the starter).
-- Form fields: `description`, `amount`, `type`, `category`
-- Filter fields: `filterType`, `filterCategory`
+| Component | File | Owns |
+|---|---|---|
+| `App` | `src/App.jsx` | `transactions` state, `handleAdd`, top-level layout |
+| `Summary` | `src/Summary.jsx` | Computes and displays income/expense/balance totals |
+| `TransactionForm` | `src/TransactionForm.jsx` | Form field state, submit logic, calls `onAdd` prop |
+| `TransactionList` | `src/TransactionList.jsx` | Filter state, filtering logic, transactions table |
 
-**Data flow**: transactions are filtered inline during render (no memoization). Summary totals (`totalIncome`, `totalExpenses`, `balance`) are also computed inline each render.
+**Data flow**: `transactions` lives in `App` and flows down as props. `TransactionForm` receives `onAdd` and calls it with a new transaction object. `Summary` and `TransactionList` each receive the full `transactions` array and derive what they need locally.
+
+**`amount` field**: stored as a number (`parseFloat` applied on form submit). Seed data in `App.jsx` also uses numeric amounts.
+
+**`categories`**: defined as a local constant in both `TransactionForm` and `TransactionList` — `["food", "housing", "utilities", "transport", "entertainment", "salary", "other"]`.
 
 **Styling**: plain CSS in `src/App.css` (no CSS framework). Key classes: `.income-amount` (green), `.expense-amount` (red), `.balance-amount`, `.summary-card`, `.delete-btn` (styled but not yet wired up).
 
-**Known intentional issues** (this is a course starter):
-- `amount` stored as string → `reduce` concatenates instead of adding
-- "Freelance Work" is categorized as `income` in the data but its `type` is set to `"expense"`
+**Known intentional issue** (this is a course starter):
+- "Freelance Work" seed entry has `type: "expense"` but `category: "salary"` — data inconsistency left from the original starter
 - No delete functionality (`.delete-btn` CSS exists but no button rendered)
