@@ -138,6 +138,52 @@ th {
   text-transform: uppercase;
 }
 
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.dialog {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 24px;
+  min-width: 280px;
+}
+
+.dialog p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.dialog-cancel-btn {
+  padding: 6px 16px;
+  background: #eee;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.dialog-confirm-btn {
+  padding: 6px 16px;
+  background: #c0392b;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+}
+
 .delete-btn {
   padding: 4px 10px;
   background: #eee;
