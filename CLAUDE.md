@@ -10,9 +10,18 @@ npm run dev       # start dev server at http://localhost:5173
 npm run build     # production build
 npm run lint      # run ESLint
 npm run preview   # preview production build
+npm run test      # run Vitest in watch mode
+npm run test:run  # run Vitest once (used by /deploy skill)
 ```
 
-There are no tests in this project.
+## Testing
+
+Vitest + @testing-library/react. Test files live in `src/test/`.
+
+- `src/test/setup.js` — imports `@testing-library/jest-dom` matchers (runs before every test file)
+- `src/test/Summary.test.jsx` — smoke tests for income/expense/balance calculation in `Summary`
+
+Vitest is configured in `vite.config.js` under the `test` key: `environment: 'jsdom'`, `globals: true`.
 
 ## Architecture
 
