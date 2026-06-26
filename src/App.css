@@ -1,207 +1,257 @@
-/* ===== App shell ===== */
+/* =========================================
+   RECEIPT PAPER
+   ========================================= */
+
 .app {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 24px 64px;
+  max-width: 560px;
+  margin: 48px auto;
+  padding: 0;
+  background: var(--color-paper);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
 }
 
-.app-header {
-  margin-bottom: 32px;
+/* Torn top edge — the signature element */
+.app::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: var(--color-paper);
+  clip-path: polygon(
+    0% 100%, 2.5% 0%, 5% 100%, 7.5% 0%, 10% 100%,
+    12.5% 0%, 15% 100%, 17.5% 0%, 20% 100%,
+    22.5% 0%, 25% 100%, 27.5% 0%, 30% 100%,
+    32.5% 0%, 35% 100%, 37.5% 0%, 40% 100%,
+    42.5% 0%, 45% 100%, 47.5% 0%, 50% 100%,
+    52.5% 0%, 55% 100%, 57.5% 0%, 60% 100%,
+    62.5% 0%, 65% 100%, 67.5% 0%, 70% 100%,
+    72.5% 0%, 75% 100%, 77.5% 0%, 80% 100%,
+    82.5% 0%, 85% 100%, 87.5% 0%, 90% 100%,
+    92.5% 0%, 95% 100%, 97.5% 0%, 100% 100%
+  );
 }
 
-.app-title {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+/* Torn bottom edge */
+.app::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: var(--color-paper);
+  clip-path: polygon(
+    0% 0%, 2.5% 100%, 5% 0%, 7.5% 100%, 10% 0%,
+    12.5% 100%, 15% 0%, 17.5% 100%, 20% 0%,
+    22.5% 100%, 25% 0%, 27.5% 100%, 30% 0%,
+    32.5% 100%, 35% 0%, 37.5% 100%, 40% 0%,
+    42.5% 100%, 45% 0%, 47.5% 100%, 50% 0%,
+    52.5% 100%, 55% 0%, 57.5% 100%, 60% 0%,
+    62.5% 100%, 65% 0%, 67.5% 100%, 70% 0%,
+    72.5% 100%, 75% 0%, 77.5% 100%, 80% 0%,
+    82.5% 100%, 85% 0%, 87.5% 100%, 90% 0%,
+    92.5% 100%, 95% 0%, 97.5% 100%, 100% 0%
+  );
+}
+
+/* =========================================
+   RECEIPT HEADER
+   ========================================= */
+
+.receipt-header {
+  padding: 32px 40px 24px;
+  text-align: center;
+  border-bottom: 1px dashed var(--color-rule);
+}
+
+.receipt-header h1 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--color-ink);
+  margin-bottom: 6px;
 }
 
-.app-subtitle {
-  font-size: 13px;
+.receipt-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--color-ink-muted);
-  margin-top: 2px;
 }
 
-/* ===== Shared card surface ===== */
-.summary-card,
-.spending-chart,
-.add-transaction,
-.transactions {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
+/* =========================================
+   SECTION TITLES (rubber-stamp labels)
+   ========================================= */
 
-/* ===== Section heading ===== */
 .section-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-ink);
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin-bottom: 14px;
 }
 
-/* ===== Summary ===== */
+/* =========================================
+   SUMMARY (receipt rows)
+   ========================================= */
+
 .summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  border-bottom: 1px dashed var(--color-rule);
 }
 
 .summary-card {
-  padding: 20px 24px;
-  border-left: 3px solid transparent;
-  transition: border-color 0.2s;
-}
-
-.summary-card--income {
-  border-left-color: var(--color-income);
-}
-
-.summary-card--expense {
-  border-left-color: var(--color-expense);
-}
-
-.summary-card--balance.is-positive {
-  border-left-color: var(--color-income);
-}
-
-.summary-card--balance.is-negative {
-  border-left-color: var(--color-expense);
-}
-
-.summary-card--balance {
-  border-left-color: var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border: none;
+  background: none;
+  box-shadow: none;
 }
 
 .summary-card__label {
-  font-size: 11px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   color: var(--color-ink-muted);
-  margin-bottom: 8px;
 }
 
 .summary-card__amount {
   font-family: var(--font-mono);
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
 }
 
 .summary-card--income .summary-card__amount { color: var(--color-income); }
 .summary-card--expense .summary-card__amount { color: var(--color-expense); }
-.summary-card--balance .summary-card__amount { color: var(--color-ink-muted); }
+
+.summary-card--balance {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-ink);
+}
+
+.summary-card--balance .summary-card__amount { font-size: 18px; }
 .summary-card--balance.is-positive .summary-card__amount { color: var(--color-income); }
 .summary-card--balance.is-negative .summary-card__amount { color: var(--color-expense); }
 
-/* ===== Chart ===== */
+/* =========================================
+   SPENDING CHART
+   ========================================= */
+
 .spending-chart {
-  padding: 24px;
-  margin-bottom: 16px;
+  padding: 20px 40px;
+  border-bottom: 1px dashed var(--color-rule);
 }
 
-.spending-chart .section-title {
-  margin-bottom: 20px;
+.spending-chart h2 {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin-bottom: 14px;
 }
 
-/* ===== Add transaction form ===== */
+/* =========================================
+   ADD TRANSACTION FORM
+   ========================================= */
+
 .add-transaction {
-  padding: 24px;
-  margin-bottom: 16px;
-}
-
-.add-transaction .section-title {
-  margin-bottom: 16px;
+  padding: 20px 40px;
+  border-bottom: 1px dashed var(--color-rule);
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr auto;
-  gap: 10px;
-  align-items: end;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
+
+.form-field--desc  { grid-column: 1 / -1; }
+.form-field--submit { grid-column: 1 / -1; }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .form-label {
-  font-size: 11px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   color: var(--color-ink-muted);
 }
 
 .form-input,
 .form-select {
-  padding: 9px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 7px 0;
+  border: none;
+  border-bottom: 1px solid var(--color-rule);
+  background: transparent;
   color: var(--color-ink);
-  background: var(--color-surface);
+  border-radius: 0;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
 }
 
 .form-input:focus,
 .form-select:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
+  border-bottom-color: var(--color-ink);
 }
 
-.form-input::placeholder {
-  color: var(--color-ink-subtle);
-}
+.form-input::placeholder { color: var(--color-rule); }
 
 .form-submit-btn {
-  padding: 9px 20px;
-  background: var(--color-accent);
-  color: #fff;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 11px 20px;
+  background: var(--color-ink);
+  color: var(--color-paper);
   border: none;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font-sans);
   cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s, transform 0.1s;
-  align-self: end;
+  border-radius: 0;
+  width: 100%;
+  transition: opacity 0.15s;
 }
 
-.form-submit-btn:hover {
-  background: #4338CA;
-}
+.form-submit-btn:hover { opacity: 0.75; }
 
-.form-submit-btn:active {
-  transform: scale(0.97);
-}
+/* =========================================
+   TRANSACTIONS
+   ========================================= */
 
-.form-submit-btn:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* ===== Transactions list ===== */
 .transactions {
-  overflow: hidden;
+  padding: 20px 40px;
+  border-bottom: 1px dashed var(--color-rule);
 }
 
 .transactions-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 20px 0;
-  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
 .filters {
@@ -210,184 +260,166 @@
 }
 
 .filter-select {
-  padding: 6px 10px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-family: var(--font-sans);
-  color: var(--color-ink);
-  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border: 1px solid var(--color-rule);
+  background: transparent;
+  color: var(--color-ink-muted);
+  border-radius: 0;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.filter-select:focus {
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  border-color: var(--color-ink);
 }
 
-.filter-select:focus-visible {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
+.empty-state {
+  padding: 24px 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-ink-muted);
 }
 
-/* ===== Transactions table ===== */
+.empty-state p + p {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--color-rule);
+}
+
 .transactions-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.transactions-table thead tr {
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  background: #FAFAFA;
-}
+.transactions-table thead { background: none; }
 
 .transactions-table th {
-  padding: 9px 16px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
   color: var(--color-ink-muted);
-  white-space: nowrap;
+  padding: 6px 8px 6px 0;
+  border-top: none;
+  border-bottom: 1px solid var(--color-ink);
+  text-align: left;
+  font-weight: 400;
 }
 
 .transactions-table td {
-  padding: 12px 16px;
-  font-size: 14px;
-  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 9px 8px 9px 0;
+  border-bottom: 1px dashed var(--color-rule);
   color: var(--color-ink);
   vertical-align: middle;
 }
 
-.transactions-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.transactions-table tbody tr:hover {
-  background: #FAFAFA;
-}
-
 .tx-date {
-  font-family: var(--font-mono);
-  font-size: 12px;
   color: var(--color-ink-muted);
+  font-size: 11px;
   white-space: nowrap;
 }
 
 .tx-amount {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   white-space: nowrap;
 }
 
-.tx-amount--income { color: var(--color-income); }
+.tx-amount--income  { color: var(--color-income); }
 .tx-amount--expense { color: var(--color-expense); }
 
-/* ===== Category chips ===== */
+/* Category chips — rubber stamps */
 .category-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: capitalize;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  border: 1px solid currentColor;
+  border-radius: 0;
   white-space: nowrap;
 }
 
-.chip--food         { background: #FFEDD5; color: #9A3412; }
-.chip--housing      { background: #EDE9FE; color: #5B21B6; }
-.chip--utilities    { background: #DBEAFE; color: #1D4ED8; }
-.chip--transport    { background: #D1FAE5; color: #065F46; }
-.chip--entertainment { background: #FCE7F3; color: #9D174D; }
-.chip--salary       { background: #FEF9C3; color: #713F12; }
-.chip--other        { background: #F3F4F6; color: #374151; }
+.chip--food          { color: #92400E; }
+.chip--housing       { color: #5B21B6; }
+.chip--utilities     { color: #1E40AF; }
+.chip--transport     { color: #065F46; }
+.chip--entertainment { color: #9D174D; }
+.chip--salary        { color: #78350F; }
+.chip--other         { color: #374151; }
 
-/* ===== Delete button ===== */
 .delete-btn {
-  padding: 5px 10px;
-  background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  background: none;
+  border: 1px solid var(--color-stamp);
+  color: var(--color-stamp);
   cursor: pointer;
-  font-size: 12px;
-  color: var(--color-ink-muted);
-  font-family: var(--font-sans);
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  border-radius: 0;
+  transition: background 0.1s, color 0.1s;
 }
 
 .delete-btn:hover {
-  border-color: var(--color-expense);
-  color: var(--color-expense);
-  background: var(--color-expense-bg);
+  background: var(--color-stamp);
+  color: var(--color-paper);
 }
 
-.delete-btn:focus-visible {
-  outline: 2px solid var(--color-expense);
-  outline-offset: 2px;
-}
+/* =========================================
+   RECEIPT FOOTER
+   ========================================= */
 
-/* ===== Empty state ===== */
-.empty-state {
-  padding: 48px 20px;
+.receipt-footer {
+  padding: 20px 40px 28px;
   text-align: center;
+}
+
+.receipt-thank-you {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.25em;
   color: var(--color-ink-muted);
-  font-size: 14px;
 }
 
-.empty-state p:first-child {
-  font-weight: 500;
-  color: var(--color-ink);
-  margin-bottom: 4px;
-}
+/* =========================================
+   CONFIRM DIALOG
+   ========================================= */
 
-/* ===== Confirm dialog ===== */
 .dialog-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(17, 24, 39, 0.4);
-  backdrop-filter: blur(3px);
+  background: rgba(26, 26, 26, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
-  animation: overlay-in 0.15s ease;
-}
-
-@keyframes overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .dialog {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 28px;
-  min-width: 320px;
-  max-width: 440px;
-  width: 90%;
-  box-shadow: var(--shadow-md);
-  animation: dialog-in 0.15s ease;
+  background: var(--color-paper);
+  border: none;
+  padding: 32px;
+  min-width: 280px;
+  max-width: 360px;
+  box-shadow: 4px 4px 0 var(--color-ink);
 }
 
-@keyframes dialog-in {
-  from { opacity: 0; transform: scale(0.96) translateY(6px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.dialog__title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-ink);
-  margin-bottom: 8px;
-}
-
-.dialog__message {
-  font-size: 14px;
-  color: var(--color-ink-muted);
-  line-height: 1.5;
+.dialog p {
+  font-family: var(--font-mono);
+  font-size: 13px;
   margin-bottom: 24px;
+  line-height: 1.6;
+  color: var(--color-ink);
 }
 
 .dialog-actions {
@@ -397,75 +429,72 @@
 }
 
 .dialog-cancel-btn {
-  padding: 8px 18px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--color-rule);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  transition: background 0.15s;
+  color: var(--color-ink-muted);
+  border-radius: 0;
+  transition: border-color 0.1s, color 0.1s;
 }
 
-.dialog-cancel-btn:hover { background: #F9FAFB; }
-
-.dialog-cancel-btn:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+.dialog-cancel-btn:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
 }
 
 .dialog-confirm-btn {
-  padding: 8px 18px;
-  background: var(--color-expense);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  background: var(--color-stamp);
   border: none;
-  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  font-family: var(--font-sans);
-  transition: background 0.15s;
+  color: var(--color-paper);
+  border-radius: 0;
+  transition: opacity 0.1s;
 }
 
-.dialog-confirm-btn:hover { background: #B91C1C; }
+.dialog-confirm-btn:hover { opacity: 0.85; }
 
-.dialog-confirm-btn:focus-visible {
-  outline: 2px solid var(--color-expense);
-  outline-offset: 2px;
-}
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 
-/* ===== Responsive ===== */
-@media (max-width: 680px) {
+@media (max-width: 600px) {
   .app {
-    padding: 20px 16px 40px;
+    margin: 0;
+    max-width: 100%;
+    box-shadow: none;
   }
 
-  .summary {
-    grid-template-columns: 1fr;
+  .app::before,
+  .app::after {
+    display: none;
+  }
+
+  .receipt-header,
+  .summary,
+  .spending-chart,
+  .add-transaction,
+  .transactions,
+  .receipt-footer {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .form-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
-  .form-field--desc {
-    grid-column: 1 / -1;
-  }
-
+  .form-field--desc,
   .form-field--submit {
-    grid-column: 1 / -1;
-  }
-
-  .form-submit-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .transactions-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    grid-column: 1;
   }
 }

@@ -27,16 +27,21 @@ function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <h1 className="app-title">Finance Tracker</h1>
-        <p className="app-subtitle">Track your income and expenses</p>
+      <header className="receipt-header">
+        <h1>Finance Tracker</h1>
+        <p className="receipt-meta">
+          {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        </p>
       </header>
-      <main>
-        <Summary transactions={transactions} />
-        <SpendingChart transactions={transactions} />
-        <TransactionForm onAdd={handleAdd} />
-        <TransactionList transactions={transactions} onDelete={handleDelete} />
-      </main>
+
+      <Summary transactions={transactions} />
+      <SpendingChart transactions={transactions} />
+      <TransactionForm onAdd={handleAdd} />
+      <TransactionList transactions={transactions} onDelete={handleDelete} />
+
+      <footer className="receipt-footer">
+        <p className="receipt-thank-you">* * * THANK YOU * * *</p>
+      </footer>
     </div>
   );
 }
